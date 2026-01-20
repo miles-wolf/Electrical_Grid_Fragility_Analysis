@@ -1,0 +1,34 @@
+Grid Fragility Analysis
+
+location:
+C:\Users\mltsw\OneDrive\Desktop\Projects\grid-fragility-analysis
+git bash:
+cd "/c/Users/mltsw/OneDrive/Desktop/Projects/grid-fragility-analysis"
+powershell:
+cd "C:\Users\Miles\OneDrive\Desktop\Projects\grid-fragility-analysis"
+
+key decisions:
+- used EIA-930 as spine initially in module 1 instead of more granular county level datasets (ISO/RTO native datasets) for simplicity
+	- future improvements: incorporate more granular datasets
+- Module 1: Built a reproducible ingestion pipeline using EIA-930 consolidated operational data, with region-scoped analysis driven by configuration.
+- Module 4: We apply unsupervised machine learning to discover recurring grid operating regimes directly from load and imbalance dynamics, without imposing fragility labels. This allows us to test whether high-fragility states emerge naturally from the data rather than being artifacts of metric design.
+
+key inferences:
+- module 2: System-level demand magnitudes align with known operating ranges for PJM (~100–140 GW typical) and CAISO (~25–35 GW typical), providing an internal sanity check on feature correctness.
+
+key notes:
+- need to understand the variables better (ramps, z-scores)
+- need to understand labels, features and metadata better from module 4 (ML terms)
+- need to understand explained variance better module 4
+- understand the pca process better from module 4
+
+to-dos:
+- fix the normalization for the caiso data because the 15 std outlier is what it's normalizing to and that's throwing it all off
+o clean up the unsupervised ML figures
+o figure out how to adjust k and whether to do HDBSCAN when more data is added and more regimes are created in the future
+o A single schematic figure: Regime → Stress → Fragility → Recovery loop
+o simplify the following module 5 overview below:
+- Identified distinct operational regimes using unsupervised clustering on load and ramp features
+- Demonstrated that fragility varies systematically by regime
+- Showed that extreme fragility arises via multiple pathways: shocks, regime persistence, and stress accumulation
+- Validated fragility metric as capturing dynamics not visible in raw ramp or load alone
